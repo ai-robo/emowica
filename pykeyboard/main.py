@@ -1,14 +1,12 @@
-
-
 # Версия 1.1
 
 import sys
 from PyQt5 import QtCore, QtWidgets, QtSerialPort
 from PyQt5.QtWidgets import QDialog, QDesktopWidget
 from PyQt5.QtCore import QTimer, QEventLoop
+import speech_module
 
 import MainWindow
-import voice
 
 #Продолжительность подсветки одной строки перед переходом к следующей строке (миллисекунды)
 WAIT_ROWS_INTERVAL = 1400
@@ -163,10 +161,11 @@ class MainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
       str = self.lineEdit.text()
       str = str[:-1]
       self.lineEdit.setText(str)
-
+      
     elif self.Emotion == "anger":
-      text = self.lineEdit.text()
-      voice.say_it(text)
+        text = self.lineEdit.text()
+        speech_module.SayIt(text)
+     	
 
     self.Emotion = ""
 

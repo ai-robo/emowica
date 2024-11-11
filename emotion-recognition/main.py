@@ -405,7 +405,7 @@ def overlay_on_image(frames, object_infos):
             label_text = emotion + " (" + str(percentage) + "%)"
             if (out_text != emotion):
                 out_text = emotion
-                if (emotion == 'happy') or (emotion == 'surprise') or (emotion == 'anger'):
+                if (emotion == 'happy') or (emotion == 'surprise') or (emotion == 'anger'):                    
                   print(emotion)
                   ser.write(emotion.encode())
 
