@@ -5,7 +5,7 @@ from speechkit import Session, SpeechSynthesis
 
 # https://github.com/TikhonP/yandex-speechkit-lib-python
 
-# Аутентификационная информация для работы с Яндекс СпичКит 
+# Аутентификационная информация для работы с Яндекс СпичКит
 oauth_token = ""
 catalog_id = ""
 
@@ -13,23 +13,23 @@ catalog_id = ""
 session = Session.from_yandex_passport_oauth_token(oauth_token, catalog_id)
 
 # Создаем экземляр класса `SpeechSynthesis`, передавая `session`,
-# который уже содержит нужный нам IAM-токен 
+# который уже содержит нужный нам IAM-токен
 # и другие необходимые для API реквизиты для входа
 synthesizeAudio = SpeechSynthesis(session)
 
 # ===================================================================
 # Функция для воспроизведения аудио
-def pyaudio_play_audio_function(audio_data, num_channels=1, 
+def pyaudio_play_audio_function(audio_data, num_channels=1,
                                 sample_rate=16000, chunk_size=5000) -> None:
     """
     Воспроизводит бинарный объект с аудио данными в формате lpcm (WAV)
-    
+
     :param bytes audio_data: данные сгенерированные спичкитом
-    :param integer num_channels: количество каналов, спичкит генерирует 
+    :param integer num_channels: количество каналов, спичкит генерирует
         моно дорожку, поэтому стоит оставить значение `1`
-    :param integer sample_rate: частота дискретизации, такая же 
+    :param integer sample_rate: частота дискретизации, такая же
         какую вы указали в параметре sampleRateHertz
-    :param integer chunk_size: размер семпла воспроизведения, 
+    :param integer chunk_size: размер семпла воспроизведения,
         можно отрегулировать если появится потрескивание
     """
     p = pyaudio.PyAudio()
@@ -59,7 +59,7 @@ def SayIt(text):
     audio_data = synthesizeAudio.synthesize_stream(
                                 text = text,
                                 voice = voice, format = 'lpcm', sampleRateHertz = sample_rate)
-                                
+
     pyaudio_play_audio_function(audio_data, sample_rate = sample_rate)
-    
+
 

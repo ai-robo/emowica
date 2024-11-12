@@ -73,8 +73,8 @@ class MainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
       [self.pushButton_ASTERISK, "*"],  [self.pushButton_SLASH_RL, "/"],
       [self.pushButton_SLASH_LR, "\""], [self.pushButton_LESS, "<"],
       [self.pushButton_MORE, ">"],      [self.pushButton_PLUS, "+"],
-      [self.pushButton_PERCENT, "%"],   [self.pushButton_EQUAL, "="],
-      [self.pushButton_SMILE, ":-)"],    [self.pushButton_SADNES, ":-("]
+      [self.pushButton_PERCENT, "%"],   [self.pushButton_MARUSYA, "Маруся"],
+      [self.pushButton_ALISA, "Алиса"],    [self.pushButton_SALUT, "Салют"]
     ]
 
     self.RowsVector.append(self.Row1Vector)
