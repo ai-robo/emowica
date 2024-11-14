@@ -147,7 +147,10 @@ class MainWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         if items_counter == 0:
           self.Delay(SCROLL_ITEMS_INTERVAL)
         if self.Emotion == "happy":
-          self.lineEdit.setText(self.lineEdit.text() + item[1])
+          if item[1]=="Алиса":
+            self.lineEdit.setText("Слушай, Алиса")
+          else:
+            self.lineEdit.setText(self.lineEdit.text() + item[1])
           self.HighlightLetter(item[0])
           self.Emotion = ""
 
