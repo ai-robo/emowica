@@ -6,6 +6,15 @@ from Controlfont import ControlFont
 import sys
 import os
 
+percent=0
+
+file_info = os.stat('/home/user/projects/hh/test.txt')
+I_file = file_info.st_size
+
+
+i_file = 3306
+x = int(i_file*100/I_file)
+
 class Control(QtWidgets.QMainWindow, Ui_MainWindow):
     edit = None
     saveloc = ""
@@ -83,13 +92,17 @@ class Control(QtWidgets.QMainWindow, Ui_MainWindow):
         
     def readEmotions(self):
         #self.Emotion = ""
-
+        global percent
         if self.Emotion == "happy":
             print("happy")
-            self.plainTextEdit.verticalScrollBar().setValue(2)    
+            percent=percent+x 
+            self.plainTextEdit.verticalScrollBar().setValue(percent) 
+              
         elif self.Emotion == "surprise":
             print("surprise")
-            self.plainTextEdit.verticalScrollBar().setValue(0)
+            percent=percent-x
+            self.plainTextEdit.verticalScrollBar().setValue(percent)
+           
         else:
             pass
         self.Emotion = ""
