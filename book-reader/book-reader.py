@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui, QtSerialPort
 from PyQt5.QtWidgets import QWidget, QDesktopWidget, QApplication
-from PyQt5.QtCore import QTimer, QEventLoop
+from PyQt5.QtCore import QTimer, QEventLoop, QFileInfo
 from TextEditor import Ui_MainWindow
 from Controlfont import ControlFont
 import sys
@@ -27,6 +27,9 @@ class Control(QtWidgets.QMainWindow, Ui_MainWindow):
             readyRead=self.Receive)
 
         self.Emotion = ""
+        self.percent = 0
+        self.step = 0
+        self.SymbolsInWindow = 1750
 
         #Delete previous font data
         try:
@@ -55,6 +58,13 @@ class Control(QtWidgets.QMainWindow, Ui_MainWindow):
         options = QtWidgets.QFileDialog.Options()
         loc, _ = QtWidgets.QFileDialog.getOpenFileName(None,"Open File", "","All Files (*);;Python Files (*.py)", options=options)
         if not(loc == ''):
+            info = QFileInfo(loc)
+            size = info.size()
+            print(size)
+            self.step = int(self.SymbolsInWindow * 100 / size)
+            if self.step == 0:
+                self.step = 1
+            print(self.step)
             self.plainTextEdit.clear()
             with open(loc , 'r') as f:
                 lines = f.read().splitlines()
@@ -65,7 +75,7 @@ class Control(QtWidgets.QMainWindow, Ui_MainWindow):
         if not self.serial.isOpen():
             self.serial.open(QtCore.QIODevice.ReadWrite)
             self.timer.timeout.connect(self.readEmotions)
-            self.timer.start(200)
+            self.timer.start(100)
             
 
 
@@ -82,14 +92,16 @@ class Control(QtWidgets.QMainWindow, Ui_MainWindow):
         
         
     def readEmotions(self):
-        #self.Emotion = ""
-
         if self.Emotion == "happy":
             print("happy")
-            self.plainTextEdit.verticalScrollBar().setValue(2)    
+            self.percent = self.percent + self.step
+            self.plainTextEdit.verticalScrollBar().setValue(self.percent)
         elif self.Emotion == "surprise":
             print("surprise")
-            self.plainTextEdit.verticalScrollBar().setValue(0)
+            self.percent = self.percent - self.step
+            if self.percent < 0:
+                self.percent = 0
+            self.plainTextEdit.verticalScrollBar().setValue(self.percent)
         else:
             pass
         self.Emotion = ""
@@ -133,6 +145,7 @@ class Control(QtWidgets.QMainWindow, Ui_MainWindow):
 if __name__ == "__main__":
     
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyleSheet('.QPlainTextEdit { font-size: 18pt;}')
     form = Control()
     form.show()
     sys.exit(app.exec_())
