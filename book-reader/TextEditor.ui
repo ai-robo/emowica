@@ -17,11 +17,11 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Book Reader</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../../Downloads/book.png</normaloff>../../../Downloads/book.png</iconset>
+   <iconset resource="resources/resource.qrc">
+    <normaloff>:/images/book.png</normaloff>:/images/book.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -31,6 +31,9 @@
        <font>
         <pointsize>18</pointsize>
        </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -119,6 +122,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources/resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
